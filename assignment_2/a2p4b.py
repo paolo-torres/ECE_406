@@ -21,23 +21,32 @@ least 2 vertices. Of course within those constraints, we could test
 for corner cases. E.g., a graph of no edges, e.g., G = [[],[],[]]
 """
 
-def getMinDistance(distance, visited, graphSize):
+def getMinDistance(distances, visited, graphSize):
     minValue = float('inf')
     minIndex = 0
 
     for i in range(graphSize):
-        if distance[i] <= minValue and visited[i] == False:
-            minValue = distance[i]
+        if distances[i] <= minValue and visited[i] == False:
+            minValue = distances[i]
             minIndex = i
     
     return minIndex
 
-def updateDistance(G, u, v, distance, visited):
+def updateDistance(G, u, v, distances, visited):
     if (G[u][v]
-        and distance[u] != float('inf')
-        and distance[G[u][v][0]] > distance[u] + G[u][v][1]
+        and distances[u] != float('inf')
+        and distances[G[u][v][0]] > distances[u] + G[u][v][1]
         and visited[v] == False):
-        distance[G[u][v][0]] = distance[u] + G[u][v][1]
+        distances[G[u][v][0]] = distances[u] + G[u][v][1]
+
+def getShortestPaths(G, distances, visited, graphSize):
+    for i in range(graphSize):
+        u = getMinDistance(distances, visited, graphSize)
+
+        for v in range(len(G[u])):
+            updateDistance(G, u, v, distances, visited)
+
+        visited[u] = True
 
 def existsInPath(curPath, vertex):
     for i in curPath:
@@ -65,47 +74,28 @@ def traverse(G, src, cur, target, curDist, targetDist, curPath, numPaths):
 
 def nshortestpaths(G, a, b):
     # vertex: [other vertex, edge weight]
-    # a = 0, b = 1, c = 2, d = 3
-    # a: [[1, 2], [3, 1]]
-    # b: [[0, 2], [3, 1], [2, 2]]
-    # c: [[1, 2]]
-    # d: [[1, 1], [0, 1]]
+    # a = 0, b = 1, c = 2, d = 3, e = 4
+    # a: [1, 4],[2, 2]
+    # b: [0, 4],[2, 1],[3, 2],[4, 3]
+    # c: [0, 2],[1, 1],[4, 5],[3, 4]
+    # d: [1, 2],[2, 4],[4, 1]
+    # e: [1, 3],[3, 1],[2, 5]
 
     graphSize = len(G)
 
-    adjacencyOrder = []
-    adjacencyIndex = []
-    adjacencyValue = []
-
-    distance = []
+    distances = []
     visited = []
 
     for i in range(graphSize):
-        distance.append(float('inf'))
+        distances.append(float('inf'))
         visited.append(False)
     
-    distance[a] = 0
-
-    for i in range(graphSize):
-        u = getMinDistance(distance, visited, graphSize)
-        
-        adjacencyOrder.append(u)
-
-        adjacentIndex = []
-        adjacentValue = []
-
-        for v in range(len(G[u])):
-            adjacentIndex.append(G[u][v][0])
-            adjacentValue.append(G[u][v][1])
-            updateDistance(G, u, v, distance, visited)
-
-        adjacencyIndex.append(adjacentIndex)
-        adjacencyValue.append(adjacentValue)
-
-        visited[u] = True
+    distances[a] = 0
+    
+    getShortestPaths(G, distances, visited, graphSize)
 
     curDist = 0
-    targetDist = distance[b]
+    targetDist = distances[b]
 
     curPath = []
     curPath.append(a)
@@ -114,5 +104,7 @@ def nshortestpaths(G, a, b):
     numPaths.append(0)
 
     traverse(G, a, a, b, curDist, targetDist, curPath, numPaths)
+
+    print('Distances:', distances, 'Paths:', numPaths[0])
     
     return numPaths[0]
