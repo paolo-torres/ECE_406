@@ -39,6 +39,30 @@ def updateDistance(G, u, v, distance, visited):
         and visited[v] == False):
         distance[G[u][v][0]] = distance[u] + G[u][v][1]
 
+def existsInPath(curPath, vertex):
+    for i in curPath:
+        if vertex == i:
+            return True
+    return False
+
+def traverse(G, src, cur, target, curDist, targetDist, curPath, numPaths):
+    if cur == target:
+        if curDist == targetDist:
+            numPaths[0] = numPaths[0] + 1
+        return
+    
+    for i in range(len(G[cur])):
+        if G[cur][i][0] == src or existsInPath(curPath, G[cur][i][0]):
+            continue
+
+        curDist = curDist + G[cur][i][1]
+        curPath.append(G[cur][i][0])
+
+        traverse(G, src, G[cur][i][0], target, curDist, targetDist, curPath, numPaths)
+        
+        curDist = curDist - G[cur][i][1]
+        curPath.pop()
+
 def nshortestpaths(G, a, b):
     # vertex: [other vertex, edge weight]
     # a = 0, b = 1, c = 2, d = 3
@@ -77,17 +101,18 @@ def nshortestpaths(G, a, b):
 
         adjacencyIndex.append(adjacentIndex)
         adjacencyValue.append(adjacentValue)
+
         visited[u] = True
 
-    print(distance)
-    print(adjacencyOrder)
-    print(adjacencyIndex)
-    print(adjacencyValue)
+    curDist = 0
+    targetDist = distance[b]
 
-    targetDistance = distance[b]
-    print(targetDistance)
-    currentDistance = 0
+    curPath = []
+    curPath.append(a)
 
-    paths = 0
+    numPaths = []
+    numPaths.append(0)
+
+    traverse(G, a, a, b, curDist, targetDist, curPath, numPaths)
     
-    return paths
+    return numPaths[0]
