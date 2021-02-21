@@ -25,57 +25,57 @@ def main():
         print('Failed')
 
 
-    print('Test 2:', end = ' ')
-    a = 0
-    b = 2
-    n = nshortestpaths(G, a, b)
+    # print('Test 2:', end = ' ')
+    # a = 0
+    # b = 2
+    # n = nshortestpaths(G, a, b)
 
-    if n == 2:
-        print('Passed')
-    else:
-        print('Failed')
+    # if n == 2:
+    #     print('Passed')
+    # else:
+    #     print('Failed')
 
-    print('Test 3:', end = ' ')
-    a = 0
-    b = 3
-    n = nshortestpaths(G, a, b)
+    # print('Test 3:', end = ' ')
+    # a = 0
+    # b = 3
+    # n = nshortestpaths(G, a, b)
 
-    if n == 1:
-        print('Passed')
-    else:
-        print('Failed')
+    # if n == 1:
+    #     print('Passed')
+    # else:
+    #     print('Failed')
 
-    print('Test 4:', end = ' ')
-    G.append([])
-    a = 0
-    b = 4
-    n = nshortestpaths(G, a, b)
+    # print('Test 4:', end = ' ')
+    # G.append([])
+    # a = 0
+    # b = 4
+    # n = nshortestpaths(G, a, b)
 
-    if n == 0:
-        print('Passed')
-    else:
-        print('Failed')
+    # if n == 0:
+    #     print('Passed')
+    # else:
+    #     print('Failed')
 
-    print('Test 5:', end = ' ')
-    # example adapted from textbook
-    G = [[[1,4],[2,2]], [[0, 4],[2,1],[3,2],[4,3]], [[0,2],[1,1],[4,5],[3,4]], [[1,2],[2,4],[4,1]], [[1,3],[3,1],[2,5]]]
-    a = 0
-    b = 4
-    n = nshortestpaths(G, a, b)
+    # print('Test 5:', end = ' ')
+    # # example adapted from textbook
+    # G = [[[1,4],[2,2]], [[0, 4],[2,1],[3,2],[4,3]], [[0,2],[1,1],[4,5],[3,4]], [[1,2],[2,4],[4,1]], [[1,3],[3,1],[2,5]]]
+    # a = 0
+    # b = 4
+    # n = nshortestpaths(G, a, b)
 
-    if n == 2:
-        print('Passed')
-    else:
-        print('Failed')
+    # if n == 2:
+    #     print('Passed')
+    # else:
+    #     print('Failed')
 
-    print('Test 6:', end = ' ')
-    b = 3
-    n = nshortestpaths(G, a, b)
+    # print('Test 6:', end = ' ')
+    # b = 3
+    # n = nshortestpaths(G, a, b)
 
-    if n == 1:
-        print('Passed')
-    else:
-        print('Failed')
+    # if n == 1:
+    #     print('Passed')
+    # else:
+    #     print('Failed')
 
 
 
