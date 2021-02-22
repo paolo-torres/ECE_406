@@ -52,7 +52,7 @@ def traverse(G, src, cur, target, curDist, targetDist, curPath, numPaths):
         index = G[cur][i][0]
         value = G[cur][i][1]
 
-        if G[cur][i][0] == src or existsInPath(curPath, index):
+        if index == src or existsInPath(curPath, index):
             continue
 
         curDist = curDist + value
