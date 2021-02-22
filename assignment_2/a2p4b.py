@@ -36,17 +36,17 @@ def updateDistance(G, u, v, distances, visited):
     if (G[u][v]
         and distances[u] != float('inf')
         and distances[G[u][v][0]] > distances[u] + G[u][v][1]
-        and visited[v] == False):
+        and visited[G[u][v][0]] == False):
         distances[G[u][v][0]] = distances[u] + G[u][v][1]
 
 def getShortestPaths(G, distances, visited, graphSize):
     for i in range(graphSize):
         u = getMinDistance(distances, visited, graphSize)
 
+        visited[u] = True
+
         for v in range(len(G[u])):
             updateDistance(G, u, v, distances, visited)
-
-        visited[u] = True
 
 def existsInPath(curPath, vertex):
     for i in curPath:
@@ -104,7 +104,5 @@ def nshortestpaths(G, a, b):
     numPaths.append(0)
 
     traverse(G, a, a, b, curDist, targetDist, curPath, numPaths)
-
-    print('Distances:', distances, 'Paths:', numPaths[0])
     
     return numPaths[0]
