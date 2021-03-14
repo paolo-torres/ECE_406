@@ -11,11 +11,18 @@ statement, you earn an automatic 0.
 def parseMoves(c, moves, costs):
     i = 0
     for move in c:
+        x = 0
         j = 0
         for index in move:
             if (index.isdigit()):
-                moves[i][j] = int(index) - 1
+                y = x + 1
+                num = str(index)
+                while (move[y].isdigit()):
+                    num += move[y]
+                    y = y + 1
+                moves[i][j] = int(num) - 1
                 j = j + 1
+            x = x + 1
         
         costs[i] = c[move]
 
@@ -43,9 +50,6 @@ def computePaths(dp, moves, costs, pos):
         yNext = moves[i][3]
 
         cost = costs[i]
-
-        if (dp[xCurr][yCurr] != float('inf')):
-            print('Move:', xCurr, yCurr, '->', xNext, yNext, 'Cost:', cost)
 
         buildDpArray(dp, pos, xCurr, yCurr, xNext, yNext, cost)
 
