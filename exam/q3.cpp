@@ -29,13 +29,12 @@ bool hasUniqueMST(vector<vector<int>>& G, vector<int>& T) {
     vector<int> U = T;
     int weightT = 0;
 
-    augmentGraphMST(H, U, weightT);
+    augmentMST(H, U, weightT);
 
     vector<int> primeT = performKruskal(H);
     if (T == primeT) {
         return true;
     }
-
     int weightPrimeT = 0;
     for (int i = 0; i < primeT.size(); i++) {
         weightPrimeT += primeT[i] - 1;
